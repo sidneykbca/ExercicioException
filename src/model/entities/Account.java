@@ -47,18 +47,19 @@ public class Account {
 		balance += amount;
 	}
 	
-	public String withdraw(Double amount) throws DomainExceptions{
+	public void withdraw(Double amount){
+		validateWithdraw(amount);
+		balance -= amount;
+	}
+	
+	private void validateWithdraw(double amount) {
 		if(amount > withdrawLimit) {
 			throw new DomainExceptions("The amount exceeds withdraw limit");
 		}
 		if(balance < amount) {
 			throw new DomainExceptions("Not enough balance");
 		}
-		if(amount instanceof Double != balance instanceof Double) {
-			throw new DomainExceptions("Invalid data");
-		}
-		balance -= amount;
-		System.out.printf("New balance: %.2f%n",balance);
-		return null;
+		
 	}
+	
 }
